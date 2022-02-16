@@ -42,7 +42,6 @@ class DeceasedController extends Controller
             ->where('firstName', $request->firstName)
             ->get();
         }
-$test;
 
         return response()->json([
             'status' => true,
