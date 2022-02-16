@@ -43,8 +43,6 @@ class DeceasedController extends Controller
             ->get();
         }
 
-        $test;
-
         return response()->json([
             'status' => true,
             'deceased' => $deceased
