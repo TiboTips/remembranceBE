@@ -17,6 +17,7 @@ class CreateCemeterySectionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cemetery_id');
             $table->string('name');
+            $table->text('comment');
             $table->timestamps();
         });
     }

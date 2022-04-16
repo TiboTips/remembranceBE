@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RestingPlace;
 
 class Deceased extends Model
 {
@@ -25,4 +26,10 @@ class Deceased extends Model
         "yearOfBirth",
         "yearOfDeath"
     ];
+
+    protected $appends = ['restingPlace'];
+
+    public function getRestingPlaceAttribute(){
+        return RestingPlace::where('id', $this->restingPlace_id)->first();
+    }
 }

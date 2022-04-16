@@ -16,19 +16,21 @@ class CreateDeceasedsTable extends Migration
         Schema::create('deceaseds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('restingPlace_id');
+            $table->string('title');
+            $table->string('lastName');
             $table->string('firstName');
             $table->string('firstName2');
             $table->string('firstName3');
-            $table->string('lastName');
-            $table->string('title');
             $table->boolean('isFullDateOfBirth');
-            $table->boolean('isFullDateOfDeath');
             $table->timestamp('dateOfBirth');
-            $table->timestamp('dateOfDeath');
-            $table->boolean('isMilitary');
-            $table->boolean('isStillLivingPartner');
             $table->integer('yearOfBirth');
+            $table->boolean('isFullDateOfDeath');
+            $table->timestamp('dateOfDeath');
             $table->integer('yearOfDeath');
+            $table->string('urlInMemoriam');
+            $table->boolean('isStillLivingPartner');
+            $table->boolean('isMilitary');
+            $table->boolean('isIncomplete');
             $table->timestamps();
         });
     }

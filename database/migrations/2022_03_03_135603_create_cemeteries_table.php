@@ -15,15 +15,17 @@ class CreateCemeteriesTable extends Migration
     {
         Schema::create('cemeteries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('image_id');
-            $table->string('addressBus');
-            $table->integer('addressNumber');
-            $table->string('addressStreet');
-            $table->string('gpsX');
-            $table->string('gpsY');
             $table->string('name');
+            $table->string('image-urlImage');
+            $table->timestamp('image-dateTaken');
+            $table->string('addressStreet');
+            $table->string('addressNumber');
+            $table->string('addressBus');
+            $table->string('zipcode');
             $table->string('town');
-            $table->integer('zipcode');
+            $table->integer('gpsX');
+            $table->integer('gpsY');
+            $table->string('folderImages');
             $table->timestamps();
         });
     }

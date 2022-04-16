@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CemeteryController;
+use App\Http\Controllers\DeceasedController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('cemeteries', [CemeteryController::class, 'getAllCemeteries']);
+Route::get('deceased', [DeceasedController::class, 'getAllDeceased']);
+Route::get('deceased/filtered', [DeceasedController::class, 'getFilteredDeceased']);
+Route::get('deceased/{deceased}', [DeceasedController::class, 'getSpecificDeceased']);

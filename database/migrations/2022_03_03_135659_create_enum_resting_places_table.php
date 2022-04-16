@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRestingPlacesTable extends Migration
+class CreateEnumRestingPlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateRestingPlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resting_places', function (Blueprint $table) {
+        Schema::create('enum_resting_places', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cemeterySection_id');
-            $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('locator_id');
-            $table->string('type');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateRestingPlacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resting_places');
+        Schema::dropIfExists('enum_resting_places');
     }
 }
