@@ -48,6 +48,7 @@ class DeceasedController extends Controller
         $dateOfDeath2 = $request->dateOfDeath2;
         $firstName = $request->firstName;
         $lastName = $request->lastName;
+
         if($request->has('cemetery')){
             $cemeteryName = $request->cemetery;
         }else{
@@ -88,14 +89,14 @@ class DeceasedController extends Controller
                 ->where('lastName', 'like', '%'.$lastName.'%')
                 ->where('firstName', 'like', '%'.$firstName.'%')
                 ->whereBetween('dateOfBirth', [$dateOfBirth1, $dateOfBirth2])
-                    ->whereBetween('dateOfDeath', [$dateOfDeath1, $dateOfDeath2]);
+                ->whereBetween('dateOfDeath', [$dateOfDeath1, $dateOfDeath2]);
             })->orWhere(function($query) use($dateOfBirth1, $dateOfBirth2, $dateOfDeath1, $dateOfDeath2, $firstName, $lastName, $cemeteryName){
                 $query
                 ->where('cemeteries.name', '=', $cemeteryName)
                 ->where('lastName', 'like', '%'.$lastName.'%')
                 ->where('firstName', 'like', '%'.$firstName.'%')
                 ->WhereBetween('yearOfBirth', [substr($dateOfBirth1, 0, 4), substr($dateOfBirth2, 0, 4)])
-                    ->WhereBetween('yearOfDeath', [substr($dateOfDeath1, 0, 4), substr($dateOfDeath2, 0, 4)]);
+                ->WhereBetween('yearOfDeath', [substr($dateOfDeath1, 0, 4), substr($dateOfDeath2, 0, 4)]);
             })
             ->get();
         }
