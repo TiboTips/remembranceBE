@@ -104,7 +104,7 @@ class DeceasedController extends Controller
         if($deceased->count() > 50){
             return response()->json([
                 'status' => false,
-                'message' => "verfijn zoekopdracht",
+                'message' => "Verfijn zoekopdracht, te veel opdrachten",
             ], 400);
         }
 
