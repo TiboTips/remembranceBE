@@ -13,8 +13,10 @@ use Carbon\Carbon;
 class DeceasedController extends Controller
 {
     public function getAllDeceased(Request $request){
-        $deceased = Deceased::get();
-
+        $deceased = Deceased::get()
+            ->where('firstName', '!=', null)
+            ->where('lastName', '!=', null)
+            ->where('isStillLivingPartner', "==", false);
         return response()->json([
             'status' => true,
             'deceased' => $deceased
@@ -60,7 +62,8 @@ class DeceasedController extends Controller
 
         if($dateOfBirth1 === null && $dateOfBirth2 === null && $dateOfDeath1 === null && $dateOfDeath2 === null){
             $deceased = Deceased::
-            join('resting_places', 'resting_places.id', '=', 'deceaseds.restingPlace_id')
+            select('deceaseds.*')
+            ->join('resting_places', 'resting_places.id', '=', 'deceaseds.restingPlace_id')
             ->join('cemetery_sections', 'cemetery_sections.id', '=', 'resting_places.cemeterySection_id')
             ->join('cemeteries', 'cemeteries.id', '=', 'cemetery_sections.cemetery_id')
             ->where('cemeteries.name', '=', $cemeteryName)
@@ -80,7 +83,9 @@ class DeceasedController extends Controller
             if($dateOfDeath2 === null){
                 $dateOfDeath2 = Carbon::maxValue();
             }
-            $deceased = Deceased::join('resting_places', 'resting_places.id', '=', 'deceaseds.restingPlace_id')
+            $deceased = Deceased::
+                select('deceaseds.*')
+                ->join('resting_places', 'resting_places.id', '=', 'deceaseds.restingPlace_id')
                 ->join('cemetery_sections', 'cemetery_sections.id', '=', 'resting_places.cemeterySection_id')
                 ->join('cemeteries', 'cemeteries.id', '=', 'cemetery_sections.cemetery_id')
             ->where(function($query) use($dateOfBirth1, $dateOfBirth2, $dateOfDeath1, $dateOfDeath2, $firstName, $lastName, $cemeteryName){
@@ -104,7 +109,7 @@ class DeceasedController extends Controller
         if($deceased->count() > 50){
             return response()->json([
                 'status' => false,
-                'message' => "Verfijn zoekopdracht, te veel opdrachten",
+                'message' => "Verfijn zoekopdracht, te veel resultaten",
             ], 400);
         }
 
